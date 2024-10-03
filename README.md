@@ -37,3 +37,5 @@ Este curso tiene como objetivo fortalecer los conocimientos en seguridad de soft
 
 10. **Programación de Pipelines en GitHub**  
     Cómo configurar pipelines de integración y entrega continua (CI/CD) en GitHub para automatizar la seguridad en el ciclo de vida del desarrollo de software.
+
+    Inicio del Curso de GitHub Action and Security.
