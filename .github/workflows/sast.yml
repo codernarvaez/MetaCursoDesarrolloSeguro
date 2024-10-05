@@ -91,13 +91,13 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: spotbugs-sarif
-            path: ${{github.workspace}}/report_spotbugs.sarif
+            path: ${{github.workspace}}/result.sarif
 
         - name: Upload Analysis Results
           if: always()
           uses: github/codeql-action/upload-sarif@v2.1.28
           with:
-            sarif_file: report_spotbugs.sarif
+            sarif_file: ${{github.workspace}}/result.sarif
 
 
 
