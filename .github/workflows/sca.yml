@@ -1,4 +1,4 @@
-name: 20 SCA
+name: 03 SCA
 
 on:
   workflow_dispatch:
