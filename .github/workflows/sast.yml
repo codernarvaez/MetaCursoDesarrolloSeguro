@@ -79,10 +79,10 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v3
 
-        - name: Run Sportbugs action
-          uses: spotbugs-action/spotbugs-action@v0.1.0-alpha
+        - name: Run Spotbugs action
+          uses: jmservera/spotbugs-github-action@v0.1.0-alpha
           with:
-            package: com.example.-
+            packages: com.example.-
             target: ./target
             dependenciesPath: ~/.m2
             basePath: src/main/java
