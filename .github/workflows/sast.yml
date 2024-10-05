@@ -87,17 +87,17 @@ jobs:
             dependenciesPath: ~/.m2
             basePath: src/main/java
 
-        - name: Upload Sportbugs report
+        - name: Upload Spotbugs report
           uses: actions/upload-artifact@v3
           with:
             name: spotbugs-sarif
-            path: ${{github.workspace}}/result.sarif
+            path: ${{github.workspace}}/results.sarif
 
         - name: Upload Analysis Results
           if: always()
           uses: github/codeql-action/upload-sarif@v2.1.28
           with:
-            sarif_file: ${{github.workspace}}/result.sarif
+            sarif_file: ${{github.workspace}}/results.sarif
 
 
 
