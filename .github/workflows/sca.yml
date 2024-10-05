@@ -35,14 +35,6 @@ jobs:
           github_pat: ${{ github.token }}
           crda: "latest"
 
-      #- name: SCA (CRDA) Scan
-      #  id: crda_scan
-      #  uses: redhat-actions/crda@v1.2
-      #  with:
-      #    manifest_file: ${{ matrix.manifest_file }}
-      #    snyk_token: ${{ secrets.OUR_SNYK_KEY }}
-      #    fail_on: never
-
       - name: Print JSON analysis report
         if: ${{ always() && steps.scan.outputs.crda_report_json }}
         run: cat ${{ steps.scan.outputs.crda_report_json }}
