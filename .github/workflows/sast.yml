@@ -66,6 +66,42 @@ jobs:
               with:
                 category: "/languaje:${{ matrix.language }}"
 
+    spotbugs:
+        name: SAST SpotBugs
+        needs: [SAST-CodeQL]
+        runs-on: ubuntu-latest
+        permissions:
+            actions: read
+            contents: read
+            security-events: write
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+
+        - name: Run Sportbugs action
+          uses: spotbugs-action/spotbugs-action@v0.1.0-alpha
+          with:
+            package: com.example.-
+            target: ./target
+            dependenciesPath: ~/.m2
+            basePath: src/main/java
+
+        - name: Upload Sportbugs report
+          uses: actions/upload-artifact@v3
+          with:
+            name: spotbugs-sarif
+            path: ${{github.workspace}}/report_spotbugs.sarif
+
+        - name: Upload Analysis Results
+          if: always()
+          uses: github/codeql-action/upload-sarif@v2.1.28
+          with:
+            sarif_file: report_spotbugs.sarif
+
+
+
+
 
 
 
