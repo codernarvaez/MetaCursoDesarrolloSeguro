@@ -14,7 +14,7 @@ jobs:
             - name: Run License Finder
               uses: jmservera/license-finder-action@main
               with:
-                permitted-licenses: MIT, Apache-2.0
+                permitted-licenses: MIT, Apache-2.0, 
                 approved-dependencies:  | 
                     junit,junit-jupiter
 
