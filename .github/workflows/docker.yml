@@ -15,7 +15,7 @@ env:
 jobs:
     docker:
         outputs:
-            image-tag: ${{ steps.docker.outputs.image-tag }}
+            image-tag: ${{ steps.meta.outputs.tags }}
         runs-on: ubuntu-latest
         permissions:
             contents: read
