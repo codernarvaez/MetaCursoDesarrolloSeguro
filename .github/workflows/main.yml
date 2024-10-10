@@ -45,10 +45,20 @@ jobs:
     uses: ./.github/workflows/license-compliance.yml
     secrets: inherit
 
-  #Cración de Docker
+  #Creación de Docker
   docker:
     needs: build
     name: Build docker image
     uses: ./.github/workflows/docker.yml
     secrets: inherit
+  
+  #Scaneo de vulnerabilidades en la imagen de Docker
+  container-image-scan:
+    needs: docker
+    name: Container Image Scan
+    uses: ./.github/workflows/container-image-scan.yml
+    secrets: inherit
+    
+
+  
   
