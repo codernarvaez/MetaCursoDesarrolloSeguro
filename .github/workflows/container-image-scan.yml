@@ -16,8 +16,7 @@ on:
           required: true
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: ${{ steps.meta.outputs.tags || 'latest' }}
+  IMAGE_TAG: ${{ inputs.image-tag || github.event.inputs.image-tag }}
 
 jobs:
   container-image-scan:
