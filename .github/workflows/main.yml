@@ -62,5 +62,14 @@ jobs:
       image-tag: ${{ needs.docker.outputs.image-tag }}
 
 
+  #Análisis de código Dinámico
+  dast:
+    needs: [build,docker]
+    name: DAST Scan
+    uses: ./.github/workflows/dast.yml
+    secrets: inherit
+    with:
+      image-tag: ${{ needs.docker.outputs.image-tag }}
+
   
   
