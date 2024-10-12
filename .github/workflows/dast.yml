@@ -1,7 +1,14 @@
-name: 08 DAST Scan Docker Image
+name: 50 DAST Scan Docker Image
 
 on:
   workflow_dispatch:
+    inputs:
+      image-tag:
+        type: string
+        description: 'The name of the docker image to scan'
+        required: true
+
+  workflow_call:
     inputs:
       image-tag:
         type: string
@@ -29,29 +36,23 @@ jobs:
         run: docker rm demoApp || true && docker run -d -p 8080:8080 --name demoApp ${{ env.IMAGE_TAG }}
 
       - name: Wait for container to start
-        run: |
-          for i in {1..60}; do
-            if [ "$(curl -s -o /dev/null -w '%{http_code}' localhost:8080)" = "200" ]; then
-              echo "Container is up!"
-              exit 0
-            fi
-            echo "Waiting for container..."
-            sleep 5
-          done
-          echo "Container did not start in time" && exit 1
+        run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
 
       - name: Test container
         run: curl -s localhost:8080/echo?msg=Hello%20World!
 
       - name: ZAP Full Scan
         uses: zaproxy/action-full-scan@v0.11.0
+            
         with:
-          docker_image: 'owasp/zap2docker-stable'
+          docker_name: 'owasp/zap2docker-stable'
           token: ${{ secrets.GITHUB_TOKEN }}
           target: 'http://localhost:8080'
           cmd_options: '-a -j -l WARN -z "-addoninstallall"'
           allow_issue_writing: true
 
+      # - name: Upload HTML report
+      #   uses: actions/upload-artifact@v3
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
